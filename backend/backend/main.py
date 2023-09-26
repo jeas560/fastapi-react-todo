@@ -1,5 +1,13 @@
 from fastapi import FastAPI, status
 from database import Base, engine
+from pydantic import BaseModel
+from datetime import time
+from typing import Union
+
+# Criando a classe ToDoRequest, herdeira da classe BaseModel
+class ToDoRequest(BaseModel):
+    task: str
+    suggested_time: Union[time, None] = None
 
 # Criando a base de dados
 Base.metadata.create_all(engine)
@@ -14,7 +22,7 @@ def root():
 
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
-def create_todo():
+def create_todo(todo: ToDoRequest):
     return "criar um item na lista"
 
 
