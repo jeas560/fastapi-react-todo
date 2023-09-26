@@ -1,13 +1,16 @@
 from fastapi import FastAPI, status
-from database import Base, engine
+from database import Base, engine, ToDo
 from pydantic import BaseModel
+from sqlalchemy.orm import Session
 from datetime import time
 from typing import Union
+
 
 # Criando a classe ToDoRequest, herdeira da classe BaseModel
 class ToDoRequest(BaseModel):
     task: str
     suggested_time: Union[time, None] = None
+
 
 # Criando a base de dados
 Base.metadata.create_all(engine)
@@ -23,7 +26,23 @@ def root():
 
 @app.post("/todo", status_code=status.HTTP_201_CREATED)
 def create_todo(todo: ToDoRequest):
-    return "criar um item na lista"
+    # Criando uma nova sessão da base de dados
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # Criando uma instancia do modelo de banco de dados ToDo
+    tododb = ToDo(task=todo.task, suggested_time=todo.suggested_time)
+
+    # add it to the session and commit it
+    session.add(tododb)
+    session.commit()
+
+    # Pegando a id dada ao objeto pelo base de dados
+    id = tododb.id
+
+    # Encerrando a sessao
+    session.close()
+
+    return f"criado um item na lista com a id {id}"
 
 
 @app.get("/todo/{id}")
