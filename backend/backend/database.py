@@ -2,7 +2,7 @@ from sqlalchemy import create_engine, Column, Integer, String, Time
 from sqlalchemy.ext.declarative import declarative_base
 
 # Criando uma instancia de engine sqlite
-engine = create_engine("sqlite:///todo.db")
+engine = create_engine("sqlite:///todoo.db")
 
 # Criando uma metaclasse Declarative
 Base = declarative_base()
