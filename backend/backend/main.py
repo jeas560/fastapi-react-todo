@@ -1,4 +1,4 @@
-from fastapi import FastAPI, status
+from fastapi import FastAPI, status, HTTPException 
 from database import Base, engine, ToDo
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -32,14 +32,14 @@ def create_todo(todo: ToDoRequest):
     # Criando uma instancia do modelo de banco de dados ToDo
     tododb = ToDo(task=todo.task, suggested_time=todo.suggested_time)
 
-    # add it to the session and commit it
+    # Adicionando a instância e comitando
     session.add(tododb)
     session.commit()
 
-    # Pegando a id dada ao objeto pelo base de dados
+    # Pegando a id dada ao objeto pela base de dados
     id = tododb.id
 
-    # Encerrando a sessao
+    # Encerrando a sessão
     session.close()
 
     return f"criado um item na lista com a id {id}"
@@ -47,7 +47,21 @@ def create_todo(todo: ToDoRequest):
 
 @app.get("/todo/{id}")
 def read_todo(id: int):
-    return f"ler item da lista com id {id}"
+    # Criando uma nova sessão da base de dados
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # Pegando o item pelo id da base de dados
+    todo = session.query(ToDo).get(id)
+
+    # Encerrando a sessão
+    session.close()
+
+    # Verificando se o item existe ao ser procurado pelo id.
+    # Se não, levanta uma exceção e retorna 404: não encontrado
+    if not todo:
+        raise HTTPException(status_code=404, detail=f"item com o {id} não encontrado")
+    
+    return todo
 
 
 @app.put("/todo/{id}")
@@ -62,4 +76,13 @@ def delete_todo(id: int):
 
 @app.get("/todo")
 def read_todo_list():
-    return "ler a lista completa de itens"
+    # Criando uma nova sessão da base de dados
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # Pegando todos os itens do banco
+    todo_list = session.query(ToDo).all()
+
+    # Encerrando a sessão
+    session.close()
+
+    return todo_list
