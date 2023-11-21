@@ -89,9 +89,25 @@ def update_todo(id: int, todo_mod: ToDoRequest):
     return todo
 
 
-@app.delete("/todo/{id}")
+@app.delete("/todo/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_todo(id: int):
-    return f"apagar ler item da lista com id {id}"
+
+    # Criando uma nova sessão da base de dados
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # Pegando um item pelo id na base de dados
+    todo = session.query(ToDo).get(id)
+
+    # Caso o item for encontrado ele será excluído do banco de dados 
+		# Se não, levanta uma exceção e retorna 404: não encontrado
+    if todo:
+        session.delete(todo)
+        session.commit()
+        session.close()
+    else:
+        raise HTTPException(status_code=404, detail=f"item com o {id} não encontrado")
+
+    return None
 
 
 @app.get("/todo")
