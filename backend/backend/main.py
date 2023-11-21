@@ -56,7 +56,7 @@ def read_todo(id: int):
     # Encerrando a sessão
     session.close()
 
-    # Verificando se o item existe ao ser procurado pelo id.
+    # Verificando se o item existe ao ser procurado pelo id
     # Se não, levanta uma exceção e retorna 404: não encontrado
     if not todo:
         raise HTTPException(status_code=404, detail=f"item com o {id} não encontrado")
@@ -65,8 +65,28 @@ def read_todo(id: int):
 
 
 @app.put("/todo/{id}")
-def update_todo(id: int):
-    return f"atualizar item da lista com id {id}"
+def update_todo(id: int, todo_mod: ToDoRequest):
+    # Criando uma nova sessão da base de dados
+    session = Session(bind=engine, expire_on_commit=False)
+
+    # Pegando um item pelo id na base de dados
+    todo = session.query(ToDo).get(id)
+
+    # Atualizar um item com as novas informações (caso for encontrado)
+    if todo:
+        todo.task = todo_mod.task
+        todo.suggested_time = todo_mod.suggested_time
+        session.commit()
+
+    # Encerrando a sessão
+    session.close()
+
+    # Verificando se o item existe ao ser procurado pelo id
+    # Se não, levanta uma exceção e retorna 404: não encontrado
+    if not todo:
+        raise HTTPException(status_code=404, detail=f"item com o {id} não encontrado")
+
+    return todo
 
 
 @app.delete("/todo/{id}")
