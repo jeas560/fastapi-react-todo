@@ -31,7 +31,7 @@ Parte II
 
 ## Instalação e configuração do ambiente
 
-Primeiramente, é muito recomentado que você faça o [tutorial de introdução](https://fastapi.tiangolo.com/learn/) próprio do FastAPI, ele é bem simples e vale muito a pena, nesta sessão faremos algo além do tutorial oficial, pois utilizaremos o [Poetry](https://python-poetry.org/) como gerenciador de dependências, que é uma ferramenta que auxilia na manutenção da saúde dos nossos cógidos**.**
+Primeiramente, é muito recomendado que você faça o [tutorial de introdução](https://fastapi.tiangolo.com/learn/) próprio do FastAPI, ele é bem simples e vale muito a pena, nesta sessão faremos algo além do tutorial oficial, pois utilizaremos o [Poetry](https://python-poetry.org/) como gerenciador de dependências, que é uma ferramenta que auxilia na manutenção da saúde dos nossos cógidos**.**
 
 Sendo assim, para começar um novo projeto em Python (neste caso utilizei a versão 3.10) é sempre recomendado criar um novo ambiente virtual para ter uma melhor gestão de dependências (para não gerar um caos na nossa máquina), uma das vantagens do Poetry é que ele também nos auxilia nessa parte, neste [link](https://realpython.com/dependency-management-python-poetry/) tem um artigo em inglês que fala sobre a sua instalação e configuração de forma mais completa (não conheço um na versão pt-br, mas caso encontrar, atualizarei esta parte do artigo), recomendo também o [vídeo](https://youtu.be/0f3moPe_bhk?si=FUvQqEvEObN2-BWV) do canal ArjanCodes sobre ele, para o caso de você gostar mais dos tutoriais em vídeo, mas a instalação básica pode ser encontrada no site oficial.
 
