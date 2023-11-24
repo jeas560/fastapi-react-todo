@@ -31,7 +31,7 @@ Parte II
 
 ## Instalação e configuração do ambiente
 
-Primeiramente, é muito recomendado que você faça o [tutorial de introdução](https://fastapi.tiangolo.com/learn/) próprio do FastAPI, ele é bem simples e vale muito a pena, nesta sessão faremos algo além do tutorial oficial, pois utilizaremos o [Poetry](https://python-poetry.org/) como gerenciador de dependências, que é uma ferramenta que auxilia na manutenção da saúde dos nossos cógidos**.**
+Primeiramente, é muito recomendado que você faça o [tutorial de introdução](https://fastapi.tiangolo.com/learn/) próprio do FastAPI, ele é bem simples e vale muito a pena, nesta sessão faremos algo além do tutorial oficial, pois utilizaremos o [Poetry](https://python-poetry.org/) como gerenciador de dependências, que é uma ferramenta que auxilia na manutenção da saúde dos nossos cógidos.
 
 Sendo assim, para começar um novo projeto em Python (neste caso utilizei a versão 3.10) é sempre recomendado criar um novo ambiente virtual para ter uma melhor gestão de dependências (para não gerar um caos na nossa máquina), uma das vantagens do Poetry é que ele também nos auxilia nessa parte, neste [link](https://realpython.com/dependency-management-python-poetry/) tem um artigo em inglês que fala sobre a sua instalação e configuração de forma mais completa (não conheço um na versão pt-br, mas caso encontrar, atualizarei esta parte do artigo), recomendo também o [vídeo](https://youtu.be/0f3moPe_bhk?si=FUvQqEvEObN2-BWV) do canal ArjanCodes sobre ele, para o caso de você gostar mais dos tutoriais em vídeo, mas a instalação básica pode ser encontrada no site oficial.
 
@@ -97,7 +97,7 @@ Como usuários do nosso app, precisaremos ser capazes de criar, ler, atualizar e
 | Apagar um item | DELETE | /todo/{id} |
 | Ler todos os itens | GET | /todo |
 
-Como é possível ver na tabela anterior, cada funcionalidade do app está relacionada a um método **HTTP. Por exemplo, o *endpoint* para ler um item da lista deverá utilizar o método `GET`, o *endpoint* para apagar um item da lista deverá utilizar o método `DELETE` e assim por diante.
+Como é possível ver na tabela anterior, cada funcionalidade do app está relacionada a um método HTTP. Por exemplo, o *endpoint* para ler um item da lista deverá utilizar o método `GET`, o *endpoint* para apagar um item da lista deverá utilizar o método `DELETE` e assim por diante.
 
 Além disso, na mesma tabela também é possível ver a coluna de *paths*, ou caminhos, que iremos utilizar para cada funcionalidade. No **FastAPI**, as chamadas *path operations*, que nada mais são do que a combinação de um caminho URL (ou *path*) com um método HTTP, nos permite implementar diferentes operações para o mesmo caminho URL, por exemplo, quando um `PUT` chamar o endereço `todoo.com/todo/123` a ação realizada será diferente de quanto um `DELETE` chamar o mesmo endereço.
 
@@ -184,7 +184,7 @@ engine = create_engine("sqlite:///todoo.db")
 Base = declarative_base()
 ```
 
-Esta função retorna uma *metaclasse* que explicaremos mais adiante como funciona. **
+Esta função retorna uma *metaclasse* que explicaremos mais adiante como funciona.
 
 ### Inicialização do banco de dados
 
